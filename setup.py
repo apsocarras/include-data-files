@@ -13,13 +13,13 @@ class my_build_py(build_py):
     # Implemented with a run() method 
     def run(self) -> None: 
 
-        with open(os.path.join('mypkg', 'foo.json'), 'r') as file: 
+        with open(os.path.join('src', 'mypkg', 'foo.json'), 'r') as file: 
             contents = json.load(file)
-        with open(os.path.join('mypkg', 'foo.py'), 'w') as file: 
+        with open(os.path.join('src', 'mypkg', 'foo.py'), 'w') as file: 
             file.write(f"JSON = {contents!r}\n")
-        zip_path = os.path.join('mypkg','bar.zip')
+        zip_path = os.path.join('src', 'mypkg','bar.zip')
         try:
-            extract_to = os.path.abspath(os.path.join('mypkg','unzipped'))
+            extract_to = os.path.abspath(os.path.join('src', 'mypkg','unzipped'))
             os.makedirs(extract_to, exist_ok=True) 
             print(f"Current working directory: {os.getcwd()}")  
             print(f'Attempting to unzip {zip_path} to {extract_to}')
