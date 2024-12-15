@@ -1,0 +1,15 @@
+LICENSE
+MANIFEST.in
+setup.py
+mypkg/__init__.py
+mypkg/bar.zip
+mypkg/foo.json
+mypkg/foo.py
+mypkg/hello.py
+mypkg.egg-info/PKG-INFO
+mypkg.egg-info/SOURCES.txt
+mypkg.egg-info/dependency_links.txt
+mypkg.egg-info/top_level.txt
+mypkg/subdir/__init__.py
+mypkg/subdir/foo2.json
+mypkg/unzipped/bar.json
