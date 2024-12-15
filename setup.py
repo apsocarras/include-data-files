@@ -12,8 +12,6 @@ class my_build_py(build_py):
     """
     # Implemented with a run() method 
     def run(self) -> None: 
-        print(f"Current working directory: {os.getcwd()}")
-        print(f"Contents of 'mypkg': {os.listdir('mypkg')}")
 
         with open(os.path.join('mypkg', 'foo.json'), 'r') as file: 
             contents = json.load(file)
@@ -21,11 +19,14 @@ class my_build_py(build_py):
             file.write(f"JSON = {contents!r}\n")
         zip_path = os.path.join('mypkg','bar.zip')
         try:
-            extract_to = os.path.join('mypkg','unzipped')
+            extract_to = os.path.abspath(os.path.join('mypkg','unzipped'))
+            os.makedirs(extract_to, exist_ok=True) 
+            print(f"Current working directory: {os.getcwd()}")  
             print(f'Attempting to unzip {zip_path} to {extract_to}')
+            print(f"Contents of 'mypkg': {os.listdir('mypkg')}")
             with ZipFile(zip_path, 'r') as zipf:
-                os.makedirs(extract_to, exist_ok=True) 
                 zipf.extractall(extract_to)
+            print(f"Unzipped contents to {extract_to}: {os.listdir(extract_to)}")
         except Exception as e: 
             print(os.listdir('.'))
             print(os.listdir('mypkg'))
@@ -39,7 +40,7 @@ setup(
   # include_package_data=True # includes anything in MANIFEST.in in final install state
   # This can be excessive if you need files in your build only and not your runtime.
   package_data={
-      'mypkg':('*.json', 'subdir/*.json', '*.zip'),
+      'mypkg':('*.json', 'subdir/*.json', '*.zip', 'unzipped/*'),
       # 'mypkg.subdir':('*.json',),
   }
  )
